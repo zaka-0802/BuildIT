@@ -1,0 +1,3496 @@
+index.html 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildIT Lab - Robot Programming for Kids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .kid-button {
+            transition: all 0.2s;
+            transform: translateY(0);
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .kid-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        .robot-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTI1IDQwQzMzLjI4NDMgNDAgNDAgMzMuMjg0MyA0MCAyNUM0MCAxNi43MTU3IDMzLjI4NDMgMTAgMjUgMTBDMTYuNzE1NyAxMCAxMCAxNi43MTU3IDEwIDI1QzEwIDMzLjI4NDMgMTYuNzE1NyA0MCAyNSA0MFoiIGZpbGw9IiNFQkYyRkUiLz4KPC9zdmc+');
+            background-repeat: repeat;
+        }
+        
+        .robot-card {
+            transition: all 0.3s ease;
+        }
+        
+        .robot-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        },
+                        success: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        danger: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        },
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-blue-50 min-h-screen robot-bg">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation Bar -->
+        <a href="ml.html" class="text-lg hover:underline flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L13 10h3.17a3 3 0 0 1 2.12 5.12l-1.95 1.95 1.95 1.95a3 3 0 1 1-4.24 4.24L12 21.17l-2.12 2.12a3 3 0 1 1-4.24-4.24l1.95-1.95-1.95-1.95a3 3 0 0 1 2.12-5.12H11l.25-.07A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path>
+            </svg>
+            ML Tools
+        </a>
+        <nav class="bg-gradient-to-r from-primary-600 to-secondary-600 p-4 text-white shadow-lg">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                        <circle cx="12" cy="5" r="2" />
+                        <path d="M12 7v4" />
+                        <line x1="8" y1="16" x2="8" y2="16" />
+                        <line x1="16" y1="16" x2="16" y2="16" />
+                    </svg>
+                    <div class="text-2xl font-bold">BuildIT Robot Lab</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-lg hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        Home
+                    </a>
+                    <a href="#" class="text-lg hover:underline flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Help
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="bg-gradient-to-b from-primary-100 to-blue-50 py-12 px-4">
+            <div class="container mx-auto text-center">
+                <div class="flex justify-center mb-6">
+                    <div class="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-primary-500 floating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="10" rx="2" />
+                            <circle cx="12" cy="5" r="2" />
+                            <path d="M12 7v4" />
+                            <line x1="8" y1="16" x2="8" y2="16" />
+                            <line x1="16" y1="16" x2="16" y2="16" />
+                            <circle cx="8" cy="16" r="1" fill="currentColor" />
+                            <circle cx="16" cy="16" r="1" fill="currentColor" />
+                        </svg>
+                        <div class="absolute -top-2 -right-2 bg-warning-400 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold">
+                            👋
+                        </div>
+                    </div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-primary-700 mb-4">Welcome to BuildIT Robot Lab!</h1>
+                <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+                    Create awesome robot programs with colorful blocks! No typing needed - just drag, drop, and watch your robot come to life!
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Create New Program Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-primary-200 card-shadow robot-card" onclick="window.location.href='/editor'">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary-100 p-4 rounded-xl mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-primary-700">Create New Robot Program</h2>
+                    </div>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Start a brand new robot adventure! Build your own program using colorful blocks and watch your robot follow your commands.
+                    </p>
+                    <button class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl text-xl font-bold kid-button flex items-center mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Create New Program
+                    </button>
+                </div>
+
+                <!-- Load Previous Programs Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 border-2 border-secondary-200 card-shadow">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-secondary-100 p-4 rounded-xl mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-secondary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-secondary-700">My Robot Programs</h2>
+                    </div>
+                    <div class="space-y-4 max-h-80 overflow-y-auto pr-2" id="programsList">
+                        <!-- Programs will be loaded here dynamically -->
+                        <div class="animate-pulse">
+                            <div class="h-16 bg-gray-200 rounded-xl mb-3"></div>
+                            <div class="h-16 bg-gray-200 rounded-xl mb-3"></div>
+                            <div class="h-16 bg-gray-200 rounded-xl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">What You Can Do With BuildIT Lab</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white rounded-2xl p-6 text-center card-shadow border-2 border-warning-200">
+                        <div class="bg-warning-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-warning-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-warning-700 mb-2">Drag & Drop Blocks</h3>
+                        <p class="text-gray-600">
+                            Build your robot program by simply dragging and connecting colorful blocks - no typing needed!
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white rounded-2xl p-6 text-center card-shadow border-2 border-success-200">
+                        <div class="bg-success-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-success-700 mb-2">Control Real Robots</h3>
+                        <p class="text-gray-600">
+                            Watch your robot move, sense, and react to the world around it with your own programs!
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white rounded-2xl p-6 text-center card-shadow border-2 border-primary-200">
+                        <div class="bg-primary-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-primary-700 mb-2">Learn & Have Fun</h3>
+                        <p class="text-gray-600">
+                            Learn coding concepts while having fun creating awesome robot programs!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Learning Section -->
+            <div class="mt-16 bg-white rounded-2xl shadow-lg p-8 card-shadow border-2 border-primary-200">
+                <h2 class="text-3xl font-bold text-center text-primary-700 mb-8">Learn Robot Programming</h2>
+                
+                <div class="mb-10">
+                    <h3 class="text-2xl font-bold text-primary-600 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                        Getting Started
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Welcome to BuildIT Robot Lab! Here you'll learn how to program robots using colorful blocks. 
+                        Let's start with some basic concepts:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-blue-50 rounded-xl p-6 border-2 border-primary-100">
+                            <h4 class="text-xl font-bold text-primary-700 mb-3">Blocks Snap Together</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="flex flex-col items-center">
+                                    <!-- First block (blue - motion) -->
+                                    <div class="relative">
+                                        <div class="bg-[#4C97FF] text-white p-3 rounded-md shadow-md w-64 mb-1 relative" style="border-radius: 4px 4px 12px 4px; margin-bottom: 9px;">
+                                            <!-- Left notch -->
+                                            <div class="absolute -left-2 top-3 w-2 h-8 bg-[#4C97FF]" style="border-radius: 4px 0 0 4px;"></div>
+                                            
+                                            <!-- Content -->
+                                            <div class="flex items-center ml-1">
+                                                <span class="mr-2">▶</span>
+                                                Move forward
+                                                <span class="bg-white text-[#4C97FF] rounded px-2 mx-2 font-bold">10</span>
+                                                steps
+                                            </div>
+                                            
+                                            <!-- Bottom connector -->
+                                            <div class="absolute left-0 right-0 -bottom-3 h-3 overflow-hidden">
+                                                <div class="absolute left-8 w-10 h-6 bg-[#4C97FF]" style="border-radius: 0 0 50% 50%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Second block (green - events) -->
+                                    <div class="relative">
+                                        <div class="bg-[#FFBF00] text-white p-3 rounded-md shadow-md w-64 mb-1 relative" style="border-radius: 4px 4px 12px 4px; margin-bottom: 9px;">
+                                            <!-- Left notch -->
+                                            <div class="absolute -left-2 top-3 w-2 h-8 bg-[#FFBF00]" style="border-radius: 4px 0 0 4px;"></div>
+                                            
+                                            <!-- Top connector -->
+                                            <div class="absolute left-0 right-0 -top-3 h-3 overflow-hidden">
+                                                <div class="absolute left-8 w-10 h-6 bg-[#FFBF00]" style="border-radius: 50% 50% 0 0; bottom: 0;"></div>
+                                            </div>
+                                            
+                                            <!-- Content -->
+                                            <div class="flex items-center ml-1">
+                                                <span class="mr-2">⚡</span>
+                                                Turn
+                                                <span class="bg-white text-[#FFBF00] rounded px-2 mx-2 font-bold">90</span>
+                                                degrees
+                                            </div>
+                                            
+                                            <!-- Bottom connector -->
+                                            <div class="absolute left-0 right-0 -bottom-3 h-3 overflow-hidden">
+                                                <div class="absolute left-8 w-10 h-6 bg-[#FFBF00]" style="border-radius: 0 0 50% 50%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Third block (purple - sound) -->
+                                    <div class="relative">
+                                        <div class="bg-[#CF63CF] text-white p-3 rounded-md shadow-md w-64 relative" style="border-radius: 4px 4px 4px 4px;">
+                                            <!-- Left notch -->
+                                            <div class="absolute -left-2 top-3 w-2 h-8 bg-[#CF63CF]" style="border-radius: 4px 0 0 4px;"></div>
+                                            
+                                            <!-- Top connector -->
+                                            <div class="absolute left-0 right-0 -top-3 h-3 overflow-hidden">
+                                                <div class="absolute left-8 w-10 h-6 bg-[#CF63CF]" style="border-radius: 50% 50% 0 0; bottom: 0;"></div>
+                                            </div>
+                                            
+                                            <!-- Content -->
+                                            <div class="flex items-center ml-1">
+                                                <span class="mr-2">🔊</span>
+                                                Play sound
+                                                <span class="bg-white text-[#CF63CF] rounded px-2 mx-2 font-bold">beep</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                Blocks connect like puzzle pieces. Drag blocks from the toolbox and snap them together to create programs!
+                            </p>
+                        </div>
+                        
+                        <div class="bg-purple-50 rounded-xl p-6 border-2 border-secondary-100">
+                            <h4 class="text-xl font-bold text-secondary-700 mb-3">Start and End Your Program</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="bg-[#FFA500] text-white p-3 rounded-md shadow-md mb-2 w-48 text-center">
+                                    Start Code
+                                </div>
+                                <div class="flex flex-col items-center mx-2">
+                                    <div class="h-6 border-l-2 border-gray-400"></div>
+                                    <div class="h-6 border-l-2 border-gray-400"></div>
+                                </div>
+                                <div class="bg-[#FFA500] text-white p-3 rounded-md shadow-md mb-2 w-48 text-center">
+                                    End Code
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                Always begin with a "Start Code" block and finish with an "End Code" block. Everything in between will run in order from top to bottom.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-10">
+                    <h3 class="text-2xl font-bold text-warning-600 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Loops - Repeat Actions
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Loops let your robot repeat actions multiple times without having to add the same blocks over and over.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-green-50 rounded-xl p-6 border-2 border-green-100">
+                            <h4 class="text-xl font-bold text-green-700 mb-3">Repeat Loop</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="bg-[#5CA65C] text-white p-3 rounded-t-md shadow-md w-64">
+                                    repeat <span class="bg-white text-black px-2 rounded">10</span> times
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Run motor A Clockwise for 100 rotations
+                                        </div>
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                            Stop motor A
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                This loop repeats the motor actions 10 times. Great for making your robot do the same movement multiple times!
+                            </p>
+                        </div>
+                        
+                        <div class="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-100">
+                            <h4 class="text-xl font-bold text-yellow-700 mb-3">While Loop</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="bg-[#5CA65C] text-white p-3 rounded-t-md shadow-md w-64">
+                                    repeat while <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">distance < 20</div>
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Move forward for 5 cm
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                This loop keeps moving the robot forward as long as the distance is less than 20 cm. Perfect for obstacle avoidance!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-10">
+                    <h3 class="text-2xl font-bold text-success-600 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        Conditions - Make Decisions
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Conditions let your robot make decisions based on sensor readings or other information.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-red-50 rounded-xl p-6 border-2 border-red-100">
+                            <h4 class="text-xl font-bold text-red-700 mb-3">If Statement</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-64">
+                                    if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                        <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                            Read UltraSonic A distance in cm
+                                        </div> < 10
+                                    </div> then
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Stop movement
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                This condition checks if an obstacle is closer than 10 cm. If it is, the robot stops to avoid collision!
+                            </p>
+                        </div>
+                        
+                        <div class="bg-indigo-50 rounded-xl p-6 border-2 border-indigo-100">
+                            <h4 class="text-xl font-bold text-indigo-700 mb-3">If-Else Statement</h4>
+                            <div class="flex justify-center mb-4">
+                                <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-64">
+                                    if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                        <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                            Is color red?
+                                        </div>
+                                    </div> then
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Stop movement
+                                        </div>
+                                    </div>
+                                    else
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Move forward for 10 cm
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">
+                                This condition checks if the color sensor sees red. If it does, the robot stops; otherwise, it moves forward!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-secondary-600 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Putting It All Together
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Let's combine these concepts to create a simple line-following robot program:
+                    </p>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 overflow-x-auto">
+                        <div class="flex flex-col items-center min-w-[600px]">
+                            <div class="bg-[#FFA500] text-white p-3 rounded-md shadow-md mb-2 w-48 text-center">
+                                Start Code
+                            </div>
+                            <div class="h-4 border-l-2 border-gray-400"></div>
+                            
+                            <div class="bg-[#5CA65C] text-white p-3 rounded-t-md shadow-md w-64 mb-2">
+                                repeat while <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">true</div>
+                                <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                    
+                                    <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-56 mb-2">
+                                        if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                            <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                                Is color black?
+                                            </div>
+                                        </div> then
+                                        <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Run motor A Clockwise at speed 50
+                                            </div>
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Run motor B Clockwise at speed 20
+                                            </div>
+                                        </div>
+                                        else
+                                        <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Run motor A Clockwise at speed 20
+                                            </div>
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Run motor B Clockwise at speed 50
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-56 mb-2">
+                                        if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                            <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                                Read UltraSonic A distance in cm
+                                            </div> < 10
+                                        </div> then
+                                        <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Stop motor A
+                                            </div>
+                                            <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                                Stop motor B
+                                            </div>
+                                            <div class="bg-[#A52A2A] text-white p-2 rounded-md mb-2 text-sm">
+                                                Display text "Obstacle detected!" for 3 seconds
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="h-4 border-l-2 border-gray-400"></div>
+                            <div class="bg-[#FFA500] text-white p-3 rounded-md shadow-md w-48 text-center">
+                                End Code
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 mt-6">
+                        This program makes your robot follow a black line while avoiding obstacles. The robot adjusts its motors based on what the color sensor sees, and stops if an obstacle is detected!
+                    </p>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="/editor" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl text-xl font-bold kid-button inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Start Building Your Robot Program
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gradient-to-r from-primary-700 to-secondary-700 text-white py-6 mt-12">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold mb-2">BuildIT Robot Lab</h3>
+                        <p class="text-primary-100">Making robotics fun and accessible for kids!</p>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-white hover:text-primary-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-primary-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white hover:text-primary-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Function to load saved programs
+        async function loadSavedPrograms() {
+            try {
+                const response = await fetch('/api/programs');
+                const programs = await response.json();
+                console.log('Programs fetched:', programs); 
+                const programsList = document.getElementById('programsList');
+                
+                if (programs.length === 0) {
+                    programsList.innerHTML = '<div class="bg-gray-50 p-6 rounded-xl text-center border border-gray-200"><p class="text-lg text-gray-500">No saved programs yet. Create your first robot program!</p></div>';
+                    return;
+                }
+
+                programsList.innerHTML = programs.map(program => `
+                    <div class="flex items-center justify-between p-4 bg-secondary-50 hover:bg-secondary-100 rounded-xl cursor-pointer border-2 border-secondary-100 transition-all hover:border-secondary-300"
+                         onclick="window.location.href='/editor?id=${program.id}'">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary-500 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <div>
+                                <div class="font-bold text-lg text-secondary-700">${program.name}</div>
+                                <div class="text-sm text-gray-500">
+                                    Last edited: ${new Date(program.lastModified).toLocaleDateString()}
+                                </div>
+                            </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary-500" 
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading programs:', error);
+                document.getElementById('programsList').innerHTML = 
+                    '<div class="bg-danger-50 p-6 rounded-xl text-center border border-danger-200"><p class="text-danger-600 text-lg">Oops! Could not load your programs. Please try again.</p></div>';
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 transition-all transform translate-y-0 opacity-100';
+            
+            // Set background color based on type
+            switch(type) {
+                case 'success':
+                    notification.classList.add('bg-success-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    `;
+                    break;
+                case 'warning':
+                    notification.classList.add('bg-warning-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    `;
+                    break;
+                case 'error':
+                    notification.classList.add('bg-danger-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    `;
+                    break;
+                default: // info
+                    notification.classList.add('bg-primary-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    `;
+            }
+            
+            // Add message
+            const messageSpan = document.createElement('span');
+            messageSpan.className = 'text-lg font-medium';
+            messageSpan.textContent = message;
+            notification.appendChild(messageSpan);
+            
+            // Add to document
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Load programs when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedPrograms();
+            showNotification('Welcome to BuildIT Robot Lab!', 'info');
+        });
+    </script>
+</body>
+</html>
+
+
+
+editor.html
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildIT Lab - Robot Programming for Kids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Blockly -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly/blocks/blocks.min.js"></script>
+    <script src="https://unpkg.com/blockly/javascript/javascript.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        #blocklyDiv {
+            height: 480px;
+            width: 100%;
+            border-radius: 12px;
+        }
+        
+        .blocklyFlyoutScrollbar {
+            display: none !important;
+        }
+        
+        .kid-button {
+            transition: all 0.2s;
+            transform: translateY(0);
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .kid-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        .robot-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTI1IDQwQzMzLjI4NDMgNDAgNDAgMzMuMjg0MyA0MCAyNUM0MCAxNi43MTU3IDMzLjI4NDMgMTAgMjUgMTBDMTYuNzE1NyAxMCAxMCAxNi43MTU3IDEwIDI1QzEwIDMzLjI4NDMgMTYuNzE1NyA0MCAyNSA0MFoiIGZpbGw9IiNFQkYyRkUiLz4KPC9zdmc+');
+            background-repeat: repeat;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        },
+                        success: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        danger: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        },
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-blue-50 min-h-screen robot-bg">
+    <!-- Navigation Bar -->
+    <nav class="bg-gradient-to-r from-primary-600 to-secondary-600 p-4 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <circle cx="12" cy="5" r="2" />
+                    <path d="M12 7v4" />
+                    <line x1="8" y1="16" x2="8" y2="16" />
+                    <line x1="16" y1="16" x2="16" y2="16" />
+                </svg>
+                <div class="text-2xl font-bold">BuildIT Robot Lab</div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/" class="text-lg hover:underline flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Home
+                </a>
+                
+                <a href="ml.html" class="text-lg hover:underline flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L13 10h3.17a3 3 0 0 1 2.12 5.12l-1.95 1.95 1.95 1.95a3 3 0 1 1-4.24 4.24L12 21.17l-2.12 2.12a3 3 0 1 1-4.24-4.24l1.95-1.95-1.95-1.95a3 3 0 0 1 2.12-5.12H11l.25-.07A4 4 0 0 1 8 6a4 4 0 0 1 4-4z"></path>
+                    </svg>
+                    ML Tools
+                </a>
+                
+                <button id="saveBtn" class="bg-success-500 hover:bg-success-600 text-white px-6 py-3 rounded-xl text-lg font-bold kid-button flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Save My Robot
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto my-8 px-4">
+        <!-- Program Name Input -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <label for="programName" class="text-xl font-bold text-gray-700">Name Your Robot Program:</label>
+            </div>
+            <input type="text" id="programName" 
+                   class="w-full md:w-1/2 px-6 py-4 text-lg rounded-xl border-2 border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+                   placeholder="My Awesome Robot...">
+        </div>
+
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+            <!-- Blockly Workspace (Left) -->
+            <div class="lg:col-span-8 bg-white rounded-2xl shadow-lg p-6 card-shadow border-2 border-primary-200">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        <h2 class="text-3xl font-bold text-primary-700">BuildIT Lab</h2>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button id="convertBtn" class="bg-primary-500 hover:bg-primary-600 text-white px-5 py-3 rounded-xl text-lg font-bold kid-button flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 3 21 3 21 8"></polyline>
+                                <line x1="4" y1="20" x2="21" y2="3"></line>
+                                <polyline points="21 16 21 21 16 21"></polyline>
+                                <line x1="15" y1="15" x2="21" y2="21"></line>
+                                <line x1="4" y1="4" x2="9" y2="9"></line>
+                            </svg>
+                            Make Code
+                        </button>
+                        <button id="executeBtn" class="bg-warning-500 hover:bg-warning-600 text-white px-5 py-3 rounded-xl text-lg font-bold kid-button flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Run Robot
+                        </button>
+                        <button id="clearBtn" class="bg-danger-500 hover:bg-danger-600 text-white px-5 py-3 rounded-xl text-lg font-bold kid-button flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+                <div id="blocklyDiv" class="border-2 border-gray-200 rounded-xl"></div>
+            </div>
+
+            <!-- Your Code (Right) -->
+            <div class="lg:col-span-4 bg-white rounded-2xl shadow-lg p-6 card-shadow border-2 border-secondary-200">
+                <div class="flex items-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <h2 class="text-3xl font-bold text-secondary-700">Your Code</h2>
+                </div>
+                <pre id="codeOutput" class="bg-gray-800 text-green-400 p-6 rounded-xl h-[480px] overflow-auto text-lg font-mono"></pre>
+            </div>
+        </div>
+
+        <!-- Hardware Status Panel (Below both) -->
+        <div id="hardware-status-panel" class="bg-white rounded-2xl shadow-lg p-6 mb-8 card-shadow border-2 border-warning-200">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-warning-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <h3 class="text-2xl font-bold text-warning-700">Robot Health Check</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                <!-- Encoder Motors -->
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Encoder Motor 1</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Encoder Motor 2</span>
+                </div>
+                
+                <!-- Servo Motors -->
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Servo Motor 1</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-gray-300 fill-gray-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Servo Motor 2</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Servo Motor 3</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Servo Motor 4</span>
+                </div>
+                
+                <!-- Ultrasonic Sensors -->
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Ultrasonic 1</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Ultrasonic 2</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-gray-300 fill-gray-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Ultrasonic 3</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">Ultrasonic 4</span>
+                </div>
+                
+                <!-- IR Sensors -->
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">IR Sensor 1</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-gray-300 fill-gray-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">IR Sensor 2</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">IR Sensor 3</span>
+                </div>
+                <div class="flex items-center gap-2 bg-green-100 p-3 rounded-xl">
+                    <svg class="h-5 w-5 text-green-500 fill-green-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                    <span class="text-base font-medium text-gray-700">IR Sensor 4</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 bg-green-50 px-4 py-3 rounded-xl mt-4 border border-green-200">
+                <svg class="h-8 w-8 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="10" rx="2" ry="2"/>
+                    <line x1="22" y1="11" x2="22" y2="13"/>
+                </svg>
+                <div>
+                    <span class="text-lg font-bold text-green-700">Battery Power</span>
+                    <div class="w-48 h-4 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-green-500 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                <span class="text-xl font-bold text-green-700">85%</span>
+            </div>
+        </div>
+
+        <!-- Program History -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 card-shadow border-2 border-success-200">
+            <div class="flex items-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-success-600 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <h2 class="text-3xl font-bold text-success-700">My Saved Robot Programs</h2>
+            </div>
+            <div id="programList" class="space-y-3 p-2">
+                <!-- Programs will be loaded here -->
+                <p class="text-lg text-gray-500 p-4 bg-gray-50 rounded-xl border border-gray-200">No saved programs yet. Create your first robot program!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with help -->
+    <footer class="bg-gradient-to-r from-primary-700 to-secondary-700 text-white py-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">Need Help?</h3>
+                    <p class="text-primary-100">Ask your teacher or click the Help button!</p>
+                </div>
+                <a href="/help.html" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl text-lg font-bold kid-button flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    Help Me
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Block Definitions
+        console.log("Blockly:", Blockly);
+        if (!Blockly) {
+            console.error("Blockly is not loaded!");
+        }
+
+        Blockly.Blocks['run_motor'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Run motor")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"], ["C","C"], ["D","D"]]), "MOTOR")
+                    .appendField("in direction")
+                    .appendField(new Blockly.FieldDropdown([["Clockwise","Clockwise"], ["Anticlockwise","Anticlockwise"]]), "DIRECTION")
+                    .appendField("for")
+                    .appendField(new Blockly.FieldNumber(100, 1, 1000), "ROTATIONS")
+                    .appendField("rotations");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");  null;
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['run_motor_at_speed'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("run motor")
+                    .appendField(new Blockly.FieldDropdown([['A','A'], ['B','B']]), "MOTOR")
+                    .appendField("in direction")
+                    .appendField(new Blockly.FieldDropdown([["Clockwise","Clockwise"], ["Anticlockwise","Anticlockwise"]]), "DIRECTION")
+                    .appendField("at speed")
+                    .appendField(new Blockly.FieldNumber(50, 0, 100), "SPEED");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        
+        Blockly.Blocks['start_encoder'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Start encoder for motor")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"]]), "MOTOR");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("Starts encoder monitoring for selected motor");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['stop_motor'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Stop motor")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"], ["C","C"], ["D","D"]]), "MOTOR");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['read_encoder_angle'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Read encoder angle of motor")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"], ["C","C"], ["D","D"]]), "MOTOR");
+                this.setOutput(true, "Number");
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['start_encoder_reading'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("start encoder reading of motor")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"]]), "MOTOR");
+                this.setOutput(true, "Number");
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['move'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Move")
+                    .appendField(new Blockly.FieldDropdown([["forward","Forward"], ["backwards","Backwards"]]), "DIRECTION")
+                    .appendField("for")
+                    .appendField(new Blockly.FieldNumber(100, 1, 1000), "DISTANCE")
+                    .appendField("cm");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(120);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['stop_movement'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Stop movement");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(120);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['read_ir_light'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Read IR")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"], ["C","C"], ["D","D"]]), "SENSOR")
+                    .appendField("light");
+                this.setOutput(true, "Number");
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['is_color'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Is color")
+                    .appendField(new Blockly.FieldDropdown([["red","Red"], ["yellow","Yellow"], ["orange","Orange"], ["green","Green"], ["blue","Blue"], ["purple","Purple"], ["pink","Pink"]]), "COLOR")
+                    .appendField("?"); 
+                this.setOutput(true, "Boolean");
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['wait_until_button_pressed'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Wait until button is pressed");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['read_ultrasonic_distance'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Read UltraSonic")
+                    .appendField(new Blockly.FieldDropdown([["A","A"], ["B","B"], ["C","C"]]), "SENSOR")
+                    .appendField("distance in cm");
+                this.setOutput(true, "Number");
+                this.setColour(60);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['show_emotion'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Show emotion")
+                    .appendField(new Blockly.FieldDropdown([
+                        ["happy", "Happy"],
+                        ["sad", "Sad"],
+                        ["angry", "Angry"],
+                        ["sick", "Sick"]
+                    ]), "EMOTION");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("Display an emotion on screen");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['display_text'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Display text")
+                    .appendField(new Blockly.FieldTextInput("Hello World"), "TEXT")
+                    .appendField("for")
+                    .appendField(new Blockly.FieldNumber(5, 1, 100), "DURATION")
+                    .appendField("seconds");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['set_screen'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Set screen")
+                    .appendField(new Blockly.FieldDropdown([["on","On"], ["off","Off"]]), "STATE");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['start_code'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Start Code");
+                this.setNextStatement(true, null);
+                this.setColour(20);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['end_code'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("End Code");
+                this.setPreviousStatement(true, null);
+                this.setColour(20);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        
+        Blockly.Blocks['take_picture'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Take Picture");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(160);
+                this.setTooltip("Takes a picture.");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['model_detects_object'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Model detects object")
+                    .appendField(new Blockly.FieldNumber(1, 1, 3, 1), "MODEL_NUMBER");
+                this.setOutput(true, "Boolean");
+                this.setColour(160);
+                this.setTooltip("Returns true if the model detects the object.");
+                this.setHelpUrl("");
+            }
+        };
+
+        // Add the new blocks for robotic arm height and gripper
+        Blockly.Blocks['set_arm_height'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Set arm height to")
+                    .appendField(new Blockly.FieldNumber(50, 0, 100), "HEIGHT")
+                    .appendField("%");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("Sets the robotic arm height (0-100%)");
+                this.setHelpUrl("");
+            }
+        };
+
+        Blockly.Blocks['set_gripper'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("Set gripper strength to")
+                    .appendField(new Blockly.FieldNumber(50, 0, 100), "STRENGTH")
+                    .appendField("%");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("Controls the gripper strength (0-100%)");
+                this.setHelpUrl("");
+            }
+        };
+
+        // Initialize Blockly workspace
+        const workspace = Blockly.inject('blocklyDiv', {
+            toolbox: `
+                <xml id="toolbox">
+                    <category name="Actuators" colour="#4C97FF">
+                        <block type="run_motor">
+                            <field name="MOTOR">A</field>
+                            <field name="DIRECTION">Clockwise</field>
+                            <field name="ROTATIONS">100</field>
+                        </block>
+                        
+                        <block type="run_motor_at_speed">
+                            <field name="MOTOR">A</field>
+                            <field name="SPEED">50</field>
+                        </block>
+                        <block type="start_encoder">
+                            <field name="MOTOR">A</field>
+                        </block>
+                        <block type="stop_motor">
+                            <field name="MOTOR">A</field>
+                        </block>
+                        <block type="read_encoder_angle">
+                            <field name="MOTOR">A</field>
+                        </block>
+                        <block type="set_arm_height">
+                            <field name="HEIGHT">50</field>
+                        </block>
+                        <block type="set_gripper">
+                            <field name="STRENGTH">50</field>
+                        </block>
+                    </category>
+                    
+                    <category name="Sensor Feedback" colour="#FF6680">
+                        <block type="read_ir_light">
+                            <field name="SENSOR">A</field>
+                        </block>
+                        
+                        <block type="is_color">
+                            <field name="COLOR">Red</field>
+                        </block><block type="read_ultrasonic_distance">
+                            <field name="SENSOR">A</field>
+                        </block>
+                    </category>
+                    
+                    <category name="Screen" colour="#A52A2A">
+                        <block type="display_text">
+                            <field name="TEXT">Hello World</field>
+                            <field name="DURATION">5</field>
+                        </block>
+                        <block type="show_emotion"></block>
+                    </category>
+                    <category name="Image Processing" colour="#8A2BE2">
+    <block type="take_picture"></block>
+    <block type="model_detects_object">
+        <field name="MODEL_NUMBER">1</field>
+    </block>
+</category>
+                    <category name="Logic" colour="#4C97FF">
+                        <block type="controls_if"></block>
+                        <block type="logic_compare"></block>
+                        <block type="logic_operation"></block>
+                        <block type="logic_negate"></block>
+                        <block type="logic_boolean"></block>
+                        <block type="logic_null"></block>
+                    </category>
+                    <category name="Loops" colour="#5CA65C">
+                        <block type="controls_repeat_ext">
+                            <value name="TIMES">
+                                <shadow type="math_number">
+                                    <field name="NUM">10</field>
+                                </shadow>
+                            </value>
+                        </block>
+                        <block type="controls_whileUntil"></block>
+                        <block type="controls_for">
+                            <value name="FROM">
+                                <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                </shadow>
+                            </value>
+                            <value name="TO">
+                                <shadow type="math_number">
+                                    <field name="NUM">10</field>
+                                </shadow>
+                            </value>
+                            <value name="BY">
+                                <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                </shadow>
+                            </value>
+                        </block>
+                        <block type="controls_flow_statements"></block>
+                    </category>
+                    <category name="Math" colour="#FF6680">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                        <block type="math_arithmetic"></block>
+                        <block type="math_single"></block>
+                        <block type="math_trig"></block>
+                        <block type="math_constant"></block>
+                        <block type="math_number_property"></block>
+                        <block type="math_round"></block>
+                        <block type="math_on_list"></block>
+                        <block type="math_modulo"></block>
+                        <block type="math_constrain">
+                            <value name="LOW">
+                                <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                </shadow>
+                            </value>
+                            <value name="HIGH">
+                                <shadow type="math_number">
+                                    <field name="NUM">100</field>
+                                </shadow>
+                            </value>
+                        </block>
+                        <block type="math_random_int">
+                            <value name="FROM">
+                                <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                </shadow>
+                            </value>
+                            <value name="TO">
+                                <shadow type="math_number">
+                                    <field name="NUM">100</field>
+                                </shadow>
+                            </value>
+                        </block>
+                        <block type="math_random_float"></block>
+                    </category>
+                    <category name="Start/End" colour="#FFA500">
+                        <block type="start_code"></block>
+                        <block type="end_code"></block>
+                    </category>
+                    
+                </xml>
+            `,
+            theme: {
+                'blockStyles': {
+                    "logic_blocks": { "colourPrimary": "#4C97FF" },
+                    "loop_blocks": { "colourPrimary": "#5CA65C" },
+                    "math_blocks": { "colourPrimary": "#FF6680" },
+                    "text_blocks": { "colourPrimary": "#FFBF00" },
+                    "list_blocks": { "colourPrimary": "#9966FF" },
+                    "variable_blocks": { "colourPrimary": "#FF8C1A" },
+                    "procedure_blocks": { "colourPrimary": "#00CC00" }
+                },
+                'componentStyles': {
+                    'workspaceBackgroundColour': '#F9FAFB',
+                    'toolboxBackgroundColour': '#F3F4F6',
+                    'toolboxForegroundColour': '#111827',
+                    'flyoutBackgroundColour': '#F3F4F6',
+                    'flyoutForegroundColour': '#111827',
+                    'flyoutOpacity': 0.9,
+                    'scrollbarColour': '#DADCE0',
+                    'scrollbarOpacity': 0.8
+                }
+            }
+        });
+
+        // Load saved programs
+        async function loadPrograms() {
+            try {
+                const response = await fetch('/api/programs');
+                const programs = await response.json();
+                const programList = document.getElementById('programList');
+                
+                if (programs.length === 0) {
+                    programList.innerHTML = '<p class="text-lg text-gray-500 p-4 bg-gray-50 rounded-xl border border-gray-200">No saved programs yet. Create your first robot program!</p>';
+                    return;
+                }
+
+                programList.innerHTML = programs.map(program => `
+                    <div class="flex items-center justify-between p-4 hover:bg-blue-50 rounded-xl cursor-pointer border-2 border-primary-100 transition-all hover:border-primary-300"
+                         onclick="loadProgram('${program.id}')">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-500 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <div>
+                                <div class="font-bold text-lg text-primary-700">${program.name}</div>
+                                <div class="text-sm text-gray-500">
+                                    Last edited: ${new Date(program.lastModified).toLocaleDateString()}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-primary-100 hover:bg-primary-200 text-primary-700 p-2 rounded-lg mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-500" 
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading programs:', error);
+                showNotification('Could not load your programs', 'error');
+            }
+        }
+
+        // Load a specific program
+        async function loadProgram(id) {
+            try {
+                const response = await fetch(`/api/program/${id}`);
+                const program = await response.json();
+                
+                document.getElementById('programName').value = program.name;
+                document.getElementById('codeOutput').textContent = program.pythonCode;
+                
+                // Load the XML into the Blockly workspace
+                const xml = Blockly.utils.xml.textToDom(program.xml);
+                Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+                
+                showNotification(`Loaded program: ${program.name}`, 'success');
+            } catch (error) {
+                console.error('Error loading program:', error);
+                showNotification('Could not load your program', 'error');
+            }
+        }
+
+        // Convert blocks to Python code
+        document.getElementById('convertBtn').addEventListener('click', async () => {
+            const xml = Blockly.Xml.workspaceToDom(workspace);
+            const xmlText = Blockly.Xml.domToText(xml);
+
+            try {
+                showNotification('Converting your blocks to code...', 'info');
+                
+                const response = await fetch('/api/convert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ xml: xmlText }),
+                });
+
+                const pythonCode = await response.text();
+                console.log("Python Code Before Saving:", pythonCode);
+
+                document.getElementById('codeOutput').textContent = pythonCode;
+                showNotification('Your blocks have been converted to code!', 'success');
+            } catch (error) {
+                console.error('Error converting code:', error);
+                showNotification('Could not convert your blocks to code', 'error');
+            }
+        });
+
+        // Save program
+        document.getElementById('saveBtn').addEventListener('click', async () => {
+            const name = document.getElementById('programName').value;
+            if (!name) {
+                showNotification('Please give your robot program a name!', 'warning');
+                document.getElementById('programName').focus();
+                return;
+            }
+
+            const xml = Blockly.Xml.workspaceToDom(workspace);
+            const xmlText = Blockly.Xml.domToText(xml);
+            const pythonCode = document.getElementById('codeOutput').textContent;
+
+            try {
+                showNotification('Saving your robot program...', 'info');
+                
+                const response = await fetch('/api/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        xml: xmlText,
+                        pythonCode: pythonCode
+                    }),
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    loadPrograms();  // Refresh the program list
+                    showNotification('Your robot program has been saved!', 'success');
+                }
+            } catch (error) {
+                console.error('Error saving program:', error);
+                showNotification('Could not save your robot program', 'error');
+            }
+        });
+
+        //Execute program
+        document.getElementById('executeBtn').addEventListener('click', async () => {
+    const code = document.getElementById('codeOutput').textContent.trim();
+    if (!code) {
+        showNotification('First convert your blocks to code!', 'warning');
+        return;
+    }
+
+    try {
+        showNotification('Running your robot program...', 'info');
+
+        const response = await fetch('/api/execute', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Success case
+            showNotification(result.message || 'Your robot program is running!', 'success');
+        } else {
+            // Error case - check if it's a connection error
+            const errorMessage = result.message || 'Failed to run your robot program';
+            
+            // If it's a connection error (contains "Failed to send" or similar phrases)
+            if (errorMessage.includes('Failed to send') || 
+                errorMessage.includes('Connection') || 
+                errorMessage.includes('connect') ||
+                errorMessage.includes('ssh') ||
+                errorMessage.includes('scp')) {
+                
+                showErrorModal(errorMessage);
+            } else {
+                // For other errors, use the regular notification
+                showNotification(errorMessage, 'error');
+            }
+        }
+    } catch (error) {
+        console.error('Execution error:', error);
+        showErrorModal('Could not connect to the server. Please try again.');
+    }
+});
+
+
+
+        // Clear workspace
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear your workspace? This will delete all your blocks!')) {
+                workspace.clear();
+                document.getElementById('codeOutput').textContent = '';
+                showNotification('Workspace cleared!', 'info');
+            }
+        });
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 transition-all transform translate-y-0 opacity-100';
+            
+            // Set background color based on type
+            switch(type) {
+                case 'success':
+                    notification.classList.add('bg-success-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    `;
+                    break;
+                case 'warning':
+                    notification.classList.add('bg-warning-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    `;
+                    break;
+                case 'error':
+                    notification.classList.add('bg-danger-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    `;
+                    break;
+                default: // info
+                    notification.classList.add('bg-primary-500', 'text-white');
+                    notification.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    `;
+            }
+            
+            // Add message
+            const messageSpan = document.createElement('span');
+            messageSpan.className = 'text-lg font-medium';
+            messageSpan.textContent = message;
+            notification.appendChild(messageSpan);
+            
+            // Add to document
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+// Add this new function after the showNotification function to create modal popups for critical errors
+
+// Add this function to show the error modal
+function showErrorModal(message) {
+    const modal = document.getElementById('errorModal');
+    const messageElement = document.getElementById('errorModalMessage');
+    
+    messageElement.textContent = message;
+    modal.classList.remove('hidden');
+    
+    // Add event listener to close button
+    document.getElementById('closeErrorModal').addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+}
+
+// Modify the execute function to use the error modal for connection errors
+document.getElementById('executeBtn').addEventListener('click', async () => {
+    const code = document.getElementById('codeOutput').textContent.trim();
+    if (!code) {
+        showNotification('First convert your blocks to code!', 'warning');
+        return;
+    }
+
+    try {
+        showNotification('Running your robot program...', 'info');
+
+        const response = await fetch('/api/execute', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Success case
+            showNotification(result.message || 'Your robot program is running!', 'success');
+        } else {
+            // Error case - check if it's a connection error
+            const errorMessage = result.message || 'Failed to run your robot program';
+            
+            // If it's a connection error (contains "Failed to send" or similar phrases)
+            if (errorMessage.includes('Failed to send') || 
+                errorMessage.includes('Connection') || 
+                errorMessage.includes('connect') ||
+                errorMessage.includes('ssh') ||
+                errorMessage.includes('scp')) {
+                
+                showErrorModal(errorMessage);
+            } else {
+                // For other errors, use the regular notification
+                showNotification(errorMessage, 'error');
+            }
+        }
+    } catch (error) {
+        console.error('Execution error:', error);
+        showErrorModal('Could not connect to the server. Please try again.');
+    }
+});
+
+// Add event listener to close the modal when clicking outside
+document.addEventListener('DOMContentLoaded', () => {
+    loadPrograms();
+    showNotification('Welcome to BuildIT Robot Lab!', 'info');
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('errorModal');
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+});
+    </script>
+  
+    <!-- Add the hardware status script -->
+    <script src="hardware-status.js"></script>
+<div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full mx-4">
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-danger-500 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h3 class="text-xl font-bold text-gray-800">Robot Connection Error</h3>
+        </div>
+        <div class="mb-6">
+            <p id="errorModalMessage" class="text-gray-700 mb-4"></p>
+            <div class="bg-danger-50 border-l-4 border-danger-500 p-4 rounded">
+                <div class="flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-danger-500 mr-2 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>
+                        <p class="text-sm text-danger-700 font-medium">Troubleshooting Tips:</p>
+                        <ul class="list-disc list-inside text-sm text-danger-700 mt-1">
+                            <li>Check if the Raspberry Pi is powered on</li>
+                            <li>Make sure you're connected to the same network</li>
+                            <li>Verify the Pi's hostname is correct (buildit.local)</li>
+                            <li>Ask your teacher for help if the problem persists</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end">
+            <button id="closeErrorModal" class="bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-xl text-base font-bold kid-button">
+                OK, I'll Check
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+help.html
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildIT Lab - Help Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .kid-button {
+            transition: all 0.2s;
+            transform: translateY(0);
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .kid-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        .robot-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIiBmaWxsPSJub25lIj4KPHBhdGggZD0iTTI1IDQwQzMzLjI4NDMgNDAgNDAgMzMuMjg0MyA0MCAyNUM0MCAxNi43MTU3IDMzLjI4NDMgMTAgMjUgMTBDMTYuNzE1NyAxMCAxMCAxNi43MTU3IDEwIDI1QzEwIDMzLjI4NDMgMTYuNzE1NyA0MCAyNSA0MFoiIGZpbGw9IiNFQkYyRkUiLz4KPC9zdmc+');
+            background-repeat: repeat;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .help-section {
+            scroll-margin-top: 100px;
+        }
+        
+        .help-nav {
+            position: sticky;
+            top: 20px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            200: '#f5d0fe',
+                            300: '#f0abfc',
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                            800: '#86198f',
+                            900: '#701a75',
+                        },
+                        success: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        },
+                        danger: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        },
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-blue-50 min-h-screen robot-bg">
+    <!-- Navigation Bar -->
+    <nav class="bg-gradient-to-r from-primary-600 to-secondary-600 p-4 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <circle cx="12" cy="5" r="2" />
+                    <path d="M12 7v4" />
+                    <line x1="8" y1="16" x2="8" y2="16" />
+                    <line x1="16" y1="16" x2="16" y2="16" />
+                </svg>
+                <div class="text-2xl font-bold">BuildIT Robot Lab</div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/" class="text-lg hover:underline flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Home
+                </a>
+                <a href="/editor" class="text-lg hover:underline flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Editor
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-b from-primary-100 to-blue-50 py-8 px-4">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center mb-4">
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-primary-700 mb-4">Help Center</h1>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+                Welcome to the BuildIT Robot Lab Help Center! Here you'll find everything you need to know about programming your robot.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-4 shadow-md help-nav">
+                    <h3 class="text-xl font-bold text-primary-700 mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#getting-started" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 17 10 11 4 5"></polyline>
+                                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                                </svg>
+                                Getting Started
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#editor-interface" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                                Editor Interface
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#block-categories" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="4" y1="9" x2="20" y2="9"></line>
+                                    <line x1="4" y1="15" x2="20" y2="15"></line>
+                                    <line x1="10" y1="3" x2="8" y2="21"></line>
+                                    <line x1="16" y1="3" x2="14" y2="21"></line>
+                                </svg>
+                                Block Categories
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#robot-controls" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                                    <circle cx="12" cy="5" r="2" />
+                                    <path d="M12 7v4" />
+                                </svg>
+                                Robot Controls
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#sensors" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                                Sensors
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#loops-conditions" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                    <polyline points="7 23 3 19 7 15"></polyline>
+                                    <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                                </svg>
+                                Loops & Conditions
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#saving-loading" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                    <polyline points="7 3 7 8 15 8"></polyline>
+                                </svg>
+                                Saving & Loading
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#troubleshooting" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-primary-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                                Troubleshooting
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Getting Started Section -->
+                <section id="getting-started" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                        Getting Started
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Welcome to BuildIT Robot Lab! This platform helps you learn programming by controlling robots using colorful blocks. Here's how to get started:
+                        </p>
+                        
+                        <div class="bg-primary-50 p-4 rounded-xl">
+                            <h3 class="text-xl font-bold text-primary-700 mb-2">Step 1: Create a New Program</h3>
+                            <p>
+                                From the home page, click on "Create New Program" to open the editor. This is where you'll build your robot program.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-primary-50 p-4 rounded-xl">
+                            <h3 class="text-xl font-bold text-primary-700 mb-2">Step 2: Name Your Program</h3>
+                            <p>
+                                Give your program a name in the input field at the top of the editor. This helps you find it later!
+                            </p>
+                        </div>
+                        
+                        <div class="bg-primary-50 p-4 rounded-xl">
+                            <h3 class="text-xl font-bold text-primary-700 mb-2">Step 3: Add Blocks</h3>
+                            <p>
+                                Drag blocks from the left toolbox into the workspace. Connect them together to create your program.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-primary-50 p-4 rounded-xl">
+                            <h3 class="text-xl font-bold text-primary-700 mb-2">Step 4: Run Your Program</h3>
+                            <p>
+                                Click "Make Code" to convert your blocks to code, then click "Run Robot" to see your robot in action!
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Editor Interface Section -->
+                <section id="editor-interface" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Editor Interface
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            The editor has several important parts that help you build and run your robot programs:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-primary-100">
+                                <h3 class="text-xl font-bold text-primary-700 mb-2">Blocks Toolbox</h3>
+                                <p>
+                                    The left side of the editor contains different categories of blocks. Click on a category to see the blocks you can use.
+                                </p>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-xl border-2 border-secondary-100">
+                                <h3 class="text-xl font-bold text-secondary-700 mb-2">Workspace</h3>
+                                <p>
+                                    The large area in the middle is where you build your program by connecting blocks together.
+                                </p>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-success-100">
+                                <h3 class="text-xl font-bold text-success-700 mb-2">Code View</h3>
+                                <p>
+                                    The right side shows the code generated from your blocks. This is what the robot actually runs!
+                                </p>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-xl border-2 border-warning-100">
+                                <h3 class="text-xl font-bold text-warning-700 mb-2">Control Buttons</h3>
+                                <p>
+                                    The buttons at the top let you convert blocks to code, run your program, and clear the workspace.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-700 mb-2">Robot Health Check</h3>
+                            <p>
+                                Below the workspace, you'll see the Robot Health Check panel. This shows which parts of your robot are connected and working.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Block Categories Section -->
+                <section id="block-categories" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="9" x2="20" y2="9"></line>
+                            <line x1="4" y1="15" x2="20" y2="15"></line>
+                            <line x1="10" y1="3" x2="8" y2="21"></line>
+                            <line x1="16" y1="3" x2="14" y2="21"></line>
+                        </svg>
+                        Block Categories
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Blocks are organized into categories to help you find what you need:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Actuators</h3>
+                                <p>
+                                    These blue blocks control motors and movement. Use them to make your robot move!
+                                </p>
+                                <div class="mt-2 bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                    Run motor A Clockwise for 100 rotations
+                                </div>
+                            </div>
+                            
+                            <div class="bg-pink-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-pink-700 mb-2">Sensor Feedback</h3>
+                                <p>
+                                    These pink blocks read information from sensors like ultrasonic and IR sensors.
+                                </p>
+                                <div class="mt-2 bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Read UltraSonic A distance in cm
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-red-700 mb-2">Screen</h3>
+                                <p>
+                                    These brown blocks control what appears on the robot's screen or display.
+                                </p>
+                                <div class="mt-2 bg-[#A52A2A] text-white p-2 rounded-md text-sm">
+                                    Display text "Hello World" for 5 seconds
+                                </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-purple-700 mb-2">Image Processing</h3>
+                                <p>
+                                    These purple blocks help your robot work with images and recognize objects.
+                                </p>
+                                <div class="mt-2 bg-[#8A2BE2] text-white p-2 rounded-md text-sm">
+                                    Upload Picture "Choose File" Label as "Object"
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Logic</h3>
+                                <p>
+                                    These blue blocks let your robot make decisions based on conditions.
+                                </p>
+                                <div class="mt-2 bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                    if [condition] then [do something]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">Loops</h3>
+                                <p>
+                                    These green blocks let your robot repeat actions multiple times.
+                                </p>
+                                <div class="mt-2 bg-[#5CA65C] text-white p-2 rounded-md text-sm">
+                                    repeat 10 times [do something]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-pink-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-pink-700 mb-2">Math</h3>
+                                <p>
+                                    These pink blocks help your robot do calculations and work with numbers.
+                                </p>
+                                <div class="mt-2 bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    [number] + [number]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-yellow-700 mb-2">Start/End</h3>
+                                <p>
+                                    These orange blocks mark the beginning and end of your program.
+                                </p>
+                                <div class="mt-2 bg-[#FFA500] text-white p-2 rounded-md text-sm">
+                                    Start Code
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Robot Controls Section -->
+                <section id="robot-controls" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="10" rx="2" />
+                            <circle cx="12" cy="5" r="2" />
+                            <path d="M12 7v4" />
+                        </svg>
+                        Robot Controls
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Learn how to control your robot's movements and actions:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Motor Controls</h3>
+                                <p class="mb-2">
+                                    Control the robot's motors to make it move in different directions.
+                                </p>
+                                <div class="space-y-2">
+                                    <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                        Run motor A Clockwise for 100 rotations
+                                    </div>
+                                    <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                        Run motor B at speed 50
+                                    </div>
+                                    <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                        Stop motor A
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">Movement Commands</h3>
+                                <p class="mb-2">
+                                    Use these blocks to make your robot move in specific ways.
+                                </p>
+                                <div class="space-y-2">
+                                    <div class="bg-[#78B159] text-white p-2 rounded-md text-sm">
+                                        Move forward for 100 cm
+                                    </div>
+                                    <div class="bg-[#78B159] text-white p-2 rounded-md text-sm">
+                                        Move backwards for 50 cm
+                                    </div>
+                                    <div class="bg-[#78B159] text-white p-2 rounded-md text-sm">
+                                        Stop movement
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-100">
+                                <h3 class="text-xl font-bold text-purple-700 mb-2">Encoder Controls</h3>
+                                <p class="mb-2">
+                                    Encoders help your robot track how far its motors have turned.
+                                </p>
+                                <div class="space-y-2">
+                                    <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                        Start encoder for motor A
+                                    </div>
+                                    <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                        Read encoder angle of motor A
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 p-4 rounded-xl border-2 border-red-100">
+                                <h3 class="text-xl font-bold text-red-700 mb-2">Display Controls</h3>
+                                <p class="mb-2">
+                                    Control what appears on your robot's screen or display.
+                                </p>
+                                <div class="space-y-2">
+                                    <div class="bg-[#A52A2A] text-white p-2 rounded-md text-sm">
+                                        Display text "Hello World" for 5 seconds
+                                    </div>
+                                    <div class="bg-[#A52A2A] text-white p-2 rounded-md text-sm">
+                                        Show emotion "happy"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Sensors Section -->
+                <section id="sensors" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                        Sensors
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Sensors help your robot understand the world around it. Here's how to use them:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Ultrasonic Sensors</h3>
+                                <p class="mb-2">
+                                    These sensors measure distance using sound waves. Great for detecting obstacles!
+                                </p>
+                                <div class="bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Read UltraSonic A distance in cm
+                                </div>
+                                <p class="mt-2 text-sm">
+                                    Use this with an if block to avoid obstacles:
+                                </p>
+                                <div class="mt-1 bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                    if [distance < 10] then [stop]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">IR Sensors</h3>
+                                <p class="mb-2">
+                                    Infrared sensors detect light levels and can be used for line following.
+                                </p>
+                                <div class="bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Read IR A light
+                                </div>
+                                <p class="mt-2 text-sm">
+                                    Use this to detect lines on the floor:
+                                </p>
+                                <div class="mt-1 bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                    if [IR light > 50] then [turn right]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-100">
+                                <h3 class="text-xl font-bold text-purple-700 mb-2">Color Sensors</h3>
+                                <p class="mb-2">
+                                    These sensors detect colors, useful for following colored lines or sorting objects.
+                                </p>
+                                <div class="bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Is color red?
+                                </div>
+                                <p class="mt-2 text-sm">
+                                    Use this to react to different colors:
+                                </p>
+                                <div class="mt-1 bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                    if [Is color red?] then [stop]
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-100">
+                                <h3 class="text-xl font-bold text-yellow-700 mb-2">Button Sensors</h3>
+                                <p class="mb-2">
+                                    Buttons can be used to start programs or detect when the robot bumps into something.
+                                </p>
+                                <div class="bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Wait until button is pressed
+                                </div>
+                                <p class="mt-2 text-sm">
+                                    Use this to wait for user input:
+                                </p>
+                                <div class="mt-1 bg-[#FF6680] text-white p-2 rounded-md text-sm">
+                                    Wait until button is pressed
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Loops & Conditions Section -->
+                <section id="loops-conditions" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="17 1 21 5 17 9"></polyline>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                            <polyline points="7 23 3 19 7 15"></polyline>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                        </svg>
+                        Loops & Conditions
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Loops and conditions make your robot smarter by letting it repeat actions and make decisions:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">Repeat Loops</h3>
+                                <p class="mb-2">
+                                    Make your robot repeat actions a specific number of times.
+                                </p>
+                                <div class="bg-[#5CA65C] text-white p-3 rounded-t-md shadow-md w-full">
+                                    repeat <span class="bg-white text-black px-2 rounded">10</span> times
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Run motor A Clockwise for 10 rotations
+                                        </div>
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md text-sm">
+                                            Wait 1 second
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">While Loops</h3>
+                                <p class="mb-2">
+                                    Repeat actions as long as a condition is true.
+                                </p>
+                                <div class="bg-[#5CA65C] text-white p-3 rounded-t-md shadow-md w-full">
+                                    repeat while <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">distance > 10</div>
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Move forward for 5 cm
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">If Statements</h3>
+                                <p class="mb-2">
+                                    Make your robot do something only if a condition is true.
+                                </p>
+                                <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-full">
+                                    if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                        <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                            Read UltraSonic A distance in cm
+                                        </div> < 10
+                                    </div> then
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Stop movement
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">If-Else Statements</h3>
+                                <p class="mb-2">
+                                    Make your robot choose between two different actions.
+                                </p>
+                                <div class="bg-[#4C97FF] text-white p-3 rounded-t-md shadow-md w-full">
+                                    if <div class="inline-block bg-[#4C97FF] text-white px-2 py-1 rounded my-1 text-sm">
+                                        <div class="inline-block bg-[#60A0FF] px-2 rounded">
+                                            Is color red?
+                                        </div>
+                                    </div> then
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Stop movement
+                                        </div>
+                                    </div>
+                                    else
+                                    <div class="ml-4 mt-2 border-l-2 border-white pl-4 py-2">
+                                        <div class="bg-[#4C97FF] text-white p-2 rounded-md mb-2 text-sm">
+                                            Move forward for 10 cm
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Saving & Loading Section -->
+                <section id="saving-loading" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Saving & Loading
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Don't lose your work! Learn how to save and load your robot programs:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Saving Your Program</h3>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Give your program a name in the input field at the top</li>
+                                    <li>Click the "Save My Robot" button in the top right</li>
+                                    <li>You'll see a notification when your program is saved</li>
+                                </ol>
+                                <p class="mt-2 text-sm">
+                                    Tip: Save your program often to avoid losing your work!
+                                </p>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-100">
+                                <h3 class="text-xl font-bold text-purple-700 mb-2">Loading a Program</h3>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Your saved programs appear in the "My Saved Robot Programs" section at the bottom of the editor</li>
+                                    <li>Click on a program to load it into the workspace</li>
+                                    <li>You can also find your programs on the home page</li>
+                                </ol>
+                                <p class="mt-2 text-sm">
+                                    Tip: You can have multiple programs for different robot tasks!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Troubleshooting Section -->
+                <section id="troubleshooting" class="bg-white rounded-2xl p-6 mb-8 shadow-lg help-section">
+                    <h2 class="text-3xl font-bold text-primary-700 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Troubleshooting
+                    </h2>
+                    <div class="space-y-4 text-gray-700">
+                        <p class="text-lg">
+                            Having problems? Here are some common issues and how to fix them:
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-red-50 p-4 rounded-xl border-2 border-red-100">
+                                <h3 class="text-xl font-bold text-red-700 mb-2">Robot Not Moving</h3>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Check if the motors are connected (green in the Robot Health Check)</li>
+                                    <li>Make sure your program has motor control blocks</li>
+                                    <li>Check if the battery has enough power</li>
+                                    <li>Try clicking "Make Code" before "Run Robot"</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-xl border-2 border-yellow-100">
+                                <h3 class="text-xl font-bold text-yellow-700 mb-2">Blocks Not Connecting</h3>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Make sure the blocks are compatible (not all blocks connect to each other)</li>
+                                    <li>Try dragging the block closer to the connection point</li>
+                                    <li>Some blocks only connect at the top or bottom</li>
+                                    <li>If a block is stuck, try using the "Clear" button and start again</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-xl border-2 border-green-100">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">Sensors Not Working</h3>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Check if the sensor is connected (green in the Robot Health Check)</li>
+                                    <li>Make sure you're using the correct sensor letter (A, B, C, or D)</li>
+                                    <li>Some sensors need to be close to objects to detect them</li>
+                                    <li>Try using a different sensor if one isn't working</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-100">
+                                <h3 class="text-xl font-bold text-blue-700 mb-2">Program Not Saving</h3>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Make sure you've given your program a name</li>
+                                    <li>Check your internet connection</li>
+                                    <li>Try refreshing the page and saving again</li>
+                                    <li>If problems persist, ask your teacher for help</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-primary-50 p-6 rounded-xl border-2 border-primary-100 mt-6">
+                            <h3 class="text-xl font-bold text-primary-700 mb-2">Still Need Help?</h3>
+                            <p>
+                                If you're still having trouble, click the "Help Me" button in the editor or ask your teacher for assistance. We're here to help you succeed with your robot programming adventure!
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="text-center mt-10">
+                    <a href="/editor" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl text-xl font-bold kid-button inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Back to Editor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-primary-700 to-secondary-700 text-white py-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">BuildIT Robot Lab</h3>
+                    <p class="text-primary-100">Making robotics fun and accessible for kids!</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white hover:text-primary-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-primary-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+server.html
+
+
+from flask import Flask, request, jsonify, send_from_directory, send_file
+import os
+import json
+import logging
+from datetime import datetime
+from xml_converter import generate_python_code_from_blockly_xml
+import subprocess
+
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+app = Flask(__name__)
+
+# Ensure the programs directory exists
+PROGRAMS_DIR = "programs"
+os.makedirs(PROGRAMS_DIR, exist_ok=True)
+
+# Serve static files
+@app.route('/')
+def landing_page():
+    try:
+        return send_file('index.html')
+    except Exception as e:
+        logger.error(f"Error serving landing page: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/editor')
+def editor():
+    try:
+        return send_file('editor.html')
+    except Exception as e:
+        logger.error(f"Error serving editor page: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+# Handle favicon.ico requests
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204  # Return no content
+
+# Serve static files from current directory
+@app.route('/<path:filename>')
+def serve_static(filename):
+    if filename == 'favicon.ico':
+        return '', 204
+    try:
+        return send_file(filename)
+    except Exception as e:
+        logger.error(f"Error serving static file {filename}: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/convert', methods=['POST'])
+def convert_code():
+    """Convert Blockly XML to Python code"""
+    try:
+        data = request.json
+        if not data or 'xml' not in data:
+            return jsonify({'error': 'No XML provided'}), 400
+        
+        logger.debug(f"Received XML: {data['xml']}")  # Log XML for debugging
+
+        python_code = generate_python_code_from_blockly_xml(data['xml'])
+        
+        logger.debug(f"Generated Python Code: {python_code}")  # Log output
+        
+        return python_code
+    except Exception as e:
+        logger.error(f"Conversion Error: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/save', methods=['POST'])
+def save_program():
+    """Save a program, updating it if the name already exists."""
+    try:
+        data = request.json
+        if not data or not all(k in data for k in ['name', 'xml', 'pythonCode']):
+            return jsonify({'error': 'Missing required fields'}), 400
+
+        # Check for existing program with the same name
+        existing_program = None
+        for filename in os.listdir(PROGRAMS_DIR):
+            if filename.endswith('.json'):
+                file_path = os.path.join(PROGRAMS_DIR, filename)
+                with open(file_path, 'r') as f:
+                    program_data = json.load(f)
+                    if program_data.get("name") == data["name"]:
+                        existing_program = file_path
+                        break  # Stop searching once found
+
+        # If program exists, overwrite the file
+        if existing_program:
+            file_path = existing_program
+        else:
+            # Otherwise, create a new file with a unique ID
+            program_id = str(int(datetime.now().timestamp()))
+            file_path = os.path.join(PROGRAMS_DIR, f"{program_id}.json")
+
+        # Save the updated or new program data
+        program_data = {
+            'id': os.path.splitext(os.path.basename(file_path))[0],  # Extract file ID
+            'name': data['name'],
+            'xml': data['xml'],
+            'pythonCode': data['pythonCode'],
+            'lastModified': datetime.now().isoformat()
+        }
+
+        with open(file_path, 'w') as f:
+            json.dump(program_data, f, indent=2)
+
+        return jsonify({'success': True, 'id': program_data['id']})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/programs')
+def list_programs():
+    """List all saved programs"""
+    try:
+        programs = []
+        for filename in os.listdir(PROGRAMS_DIR):
+            if filename.endswith('.json'):
+                with open(os.path.join(PROGRAMS_DIR, filename), 'r') as f:
+                    program = json.load(f)
+                    programs.append({
+                        'id': program['id'],
+                        'name': program['name'],
+                        'lastModified': program['lastModified']
+                    })
+        return jsonify(sorted(programs, key=lambda x: x['lastModified'], reverse=True))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/program/<program_id>')
+def get_program(program_id):
+    """Get a specific program by ID"""
+    try:
+        file_path = os.path.join(PROGRAMS_DIR, f"{program_id}.json")
+        if not os.path.exists(file_path):
+            return jsonify({'error': 'Program not found'}), 404
+        
+        with open(file_path, 'r') as f:
+            program = json.load(f)
+        return jsonify(program)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/upload_picture', methods=['POST'])
+def upload_picture():
+    """Upload a picture and assign a label"""
+    try:
+        if 'file' not in request.files or 'label' not in request.form:
+            return jsonify({'error': 'No file or label provided'}), 400
+        
+        file = request.files['file']
+        label = request.form['label']
+        
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
+        
+        # Save the file to the uploads directory
+        uploads_dir = 'uploads'
+        os.makedirs(uploads_dir, exist_ok=True)
+        file_path = os.path.join(uploads_dir, file.filename)
+        file.save(file_path)
+
+        return jsonify({'success': True, 'label': label}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/execute', methods=['POST'])
+def execute_program():
+    """Execute the generated Python code"""
+    try:
+        data = request.json
+        if not data or 'code' not in data:
+            return jsonify({'success': False, 'message': 'No code provided'}), 400
+
+        # Save the code to the specified folder as helo.ino
+        save_folder = r"C:\Users\Ibrahim Ghazi\Desktop\FYDP\program\send_ino_file"
+        file_path = os.path.join(save_folder, "helo.ino")
+        
+        # Ensure the directory exists
+        os.makedirs(save_folder, exist_ok=True)
+        
+        # Write the code to the file
+        with open(file_path, 'w') as f:
+            f.write(data['code'])
+        
+        logger.info(f"Saved code to {file_path}")
+        
+        # Run the send_ino.py script to send the file to Raspberry Pi
+        try:
+            # Get the directory of the current script
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            send_ino_script = os.path.join(current_dir, "send_ino.py")
+            
+            # Execute the script and capture its output
+            result = subprocess.run(["python", send_ino_script], 
+                                   check=False,  # Don't raise exception on non-zero exit
+                                   capture_output=True,
+                                   text=True)
+            
+            # Parse the JSON output from the script
+            try:
+                output_json = json.loads(result.stdout)
+                return jsonify(output_json)
+            except json.JSONDecodeError:
+                # If output is not valid JSON, return the raw output
+                if result.returncode != 0:
+                    return jsonify({
+                        'success': False,
+                        'message': f'Error: {result.stderr or result.stdout}'
+                    })
+                return jsonify({
+                    'success': True,
+                    'message': 'Code sent to Raspberry Pi'
+                })
+                
+        except Exception as e:
+            logger.error(f"Failed to send code to Raspberry Pi: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': f'Failed to send code to Raspberry Pi: {str(e)}'
+            })
+            
+    except Exception as e:
+        logger.error(f"Error in execute_program: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': f'Server error: {str(e)}'
+        })
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=8000)
+
+
+
+xml_converter.py 
+
+
+import xml.etree.ElementTree as ET
+
+def generate_python_code_from_blockly_xml(xml_string):
+    """
+    Generate Python code from the XML representation of Blockly.
+    
+    Args:
+        xml_string: XML string exported by Blockly.
+    Returns:
+        Generated Python code as a string.
+    """
+    try:
+        # Parse the XML
+        root = ET.fromstring(xml_string)
+        python_code = []  # Store code lines in a list for better management
+        print("XML Root:", ET.tostring(root, encoding="unicode"))
+
+        def parse_block(block):
+            if block is None:
+             return "100"
+
+            namespace = {'ns0': 'https://developers.google.com/blockly/xml'}  # Namespace definition
+            block_type = block.attrib.get("type")
+            print(f"Processing Block: {block_type}")  # Debugging output
+
+            # FIX: Extract fields, values, and statements correctly
+            fields = {field.attrib["name"]: field.text for field in block.findall("ns0:field", namespace)}
+            values = {}
+            
+            for value in block.findall("ns0:value", namespace):
+                name = value.attrib["name"]
+                block_or_shadow = value.find("ns0:block", namespace) or value.find("ns0:shadow", namespace)
+                if block_or_shadow is not None:
+                    values[name] = parse_block(block_or_shadow)
+            statements = {}
+            for statement in block.findall("ns0:statement", namespace):
+                name = statement.attrib["name"]
+                statements[name] = parse_block(statement.find("ns0:block", namespace))  # Recursively parse blocks inside statements
+
+            next_block = block.find("ns0:next/ns0:block", namespace)
+
+            print(f"Fields: {fields}")  # Debugging
+            print(f"Values: {values}")  # Debugging
+            print(f"Statements: {statements}")  # Debugging
+            print(f"Next: {next_block}")  # Debugging
+            code_lines = []
+
+            if block_type == "run_motor":
+                motor = fields.get("MOTOR", "A")
+                direction = fields.get("DIRECTION", "Clockwise")
+                rotations = fields.get("ROTATIONS", "1")
+                code_lines.append(f"run_motor({motor}, {direction}, {rotations});")
+
+
+
+            elif block_type == "move":
+                direction = fields.get("DIRECTION", "FORWARD")
+                distance = fields.get("DISTANCE", "100")
+                code_lines.append(f"move('{direction}', {distance});")
+
+
+
+            elif block_type == "stop_motor":
+                motor = fields.get("MOTOR", "A")
+                code_lines.append(f"stop_motor('{motor}');")
+            
+
+            elif block_type == "run_motor_at_speed":
+                motor = fields.get("MOTOR", "A")
+                direction = fields.get("DIRECTION", "Clockwise")
+                speed = fields.get("SPEED", "1")
+                code_lines.append(f"run_motor_at_speed({motor}, \"{direction}\", {speed});")
+
+            elif block_type == "math_number":
+                number = fields.get("NUM", "0")
+                code_lines.append(f"{number}")
+
+
+            elif block_type == "read_encoder_angle":
+                motor = fields.get("MOTOR", "A")
+                return f"read_encoder_angle('{motor}')"
+            
+            elif block_type == "start_encoder_reading":
+                motor = fields.get("MOTOR", "A")
+                return f"start_encoder_reading('{motor}')"
+
+
+
+            elif block_type == "read_ultrasonic_distance":
+                sensor = fields.get("SENSOR", "A")
+                return f"read_ultrasonic_distance({sensor})"
+
+
+            elif block_type == "read_ir_light":
+                sensor = fields.get("SENSOR", "A")
+                return f"read_ir_light({sensor})"
+
+
+            elif block_type == "model_detects_object":
+                model_number = fields.get("MODEL_NUMBER", "1")
+                code_lines.append(f"is_object_detected()")
+           
+            elif block_type == "take_picture":
+                return f"take_picture();"
+
+            elif block_type == "is_color":
+                color = fields.get("COLOR", "Red")
+                return f"color_is(\"{color}\")"
+
+
+
+
+
+            elif block_type == "display_text":
+                text = fields.get("TEXT", "")
+                duration = fields.get("DURATION", "1")
+                return [f"display_text({repr(text)}, {duration});"]
+
+
+
+            elif block_type == "controls_if":
+                i=0
+                while f"IF{i}" in values:
+                    condition = values.get(f"IF{i}", '('+"True"+')')
+                    body = statements.get(f"DO{i}")
+                    code_lines.extend('{')
+                    if i == 0:
+                        code_lines.append(f"if {condition}"+'{')
+                        
+                    else:
+                        code_lines.append(f"else if {condition.rstrip(';')}")
+                        code_lines.extend('{')
+                    if body:
+                        if isinstance(body, str):
+                            body = body.splitlines()
+                        code_lines.extend([f"    {line}" for line in body])
+                        i += 1
+                    code_lines.extend('}')
+                    
+                else_body = statements.get("ELSE")
+                if else_body:
+                        code_lines.append("else")
+                        code_lines.extend('{')
+                        code_lines.extend([f"    {line}" for line in else_body.splitlines()])
+                        code_lines.extend('}')
+                code_lines.extend('}')
+                    
+
+
+            elif block_type == "controls_whileUntil":
+                mode = fields.get("MODE", "WHILE")
+                condition = values.get("BOOL", "True")
+                body =  (statements.get("DO"))
+                
+                if mode == "UNTIL":
+                    condition = f"not ({condition})"
+                
+                code_lines.append(f"void loop()")
+                code_lines.extend('{')
+                if body:
+                    code_lines.extend([f"    {line}" for line in body.splitlines()])
+                else:
+                    code_lines.append("    pass")
+                code_lines.extend('}')
+
+            elif block_type == "controls_for":
+                var = fields.get("VAR", "i")
+                start = values.get("FROM", "0")
+                end = values.get("TO", "10")
+                step = values.get("BY", "1")
+                body = statements.get("DO")
+
+                code_lines.append(f"for ({var}={start} ; {var}<{end} ; {var}={var}+{step})"+ '{')
+                if body:
+                    code_lines.extend([f"    {line}" for line in body.splitlines()] )
+                    code_lines.extend('}')
+                else:
+                    code_lines.append("    pass")
+
+            elif block_type == "logic_compare":
+                op = fields.get("OP", "EQ")
+                a = values.get("A", "0")
+                b = values.get("B", "0")
+                op_map = {
+                    "EQ": "==", "NEQ": "!=",
+                    "LT": "<", "LTE": "<=",
+                    "GT": ">", "GTE": ">="
+                }
+                return f"({a} {op_map.get(op, '==')} {b})"
+
+            elif block_type == "math_arithmetic":
+                op = fields.get("OP")
+                a = values.get("A", "0")
+                b = values.get("B", "0")
+                op_map = {
+                    "ADD": "+", "MINUS": "-",
+                    "MULTIPLY": "*", "DIVIDE": "/",
+                    "POWER": "**"
+                }
+                return f"({a} {op_map.get(op, '+')} {b})"
+            
+            elif block_type == "controls_flow_statements":
+                flow = fields.get("FLOW", "")
+                if flow == "BREAK":
+                    code_lines.append("break")
+                elif flow == "CONTINUE":
+                    code_lines.append("continue")
+                else:
+                    code_lines.append("# Unsupported flow statement")
+            
+            elif block_type == "controls_repeat_ext":
+                times = values.get("TIMES", "10")  # Get repeat count
+                code_lines.append(f"for i in range({times}):")
+                
+                # Get body block code
+                body = statements.get("DO", [])
+                
+                # Ensure it's a list of lines, not a string
+                if isinstance(body, str):
+                    body = [body]
+
+                if body:
+                    for line in body:
+                        code_lines.append(f"    {line}")
+                else:
+                    code_lines.append("    pass")
+
+
+
+
+
+            # Process the next block if it exists
+            if next_block is not None:
+                next_code = parse_block(next_block)
+                if next_code:
+                    code_lines.append(next_code)
+            
+            print(code_lines)
+            return "\n".join(code_lines)
+
+        # Process all top-level blocks
+        namespace = {'ns0': 'https://developers.google.com/blockly/xml'}
+        for block in root.findall("ns0:block", namespace):
+            print(block)
+            code = parse_block(block)
+            print(code)
+            if code:
+                python_code.append(code)
+
+        # Join all code parts with proper spacing
+        final_code = "\n".join(python_code)
+
+        # Add imports and setup at the beginning
+        header = "//Generated C++ Code\n\n"
+        library = """#include <BuildIT.h>
+
+void setup() {
+    setup_hardware();
+}
+"""
+
+    
+        
+        print(header)
+        return library +final_code 
+
+    except ET.ParseError as e:
+        return f"# Error parsing XML: {str(e)}"
+    except Exception as e:
+        return f"# Error generating code: {str(e)}"
+
+
+
+send_ino.py
+
+
+import os
+import subprocess
+import json  # Added JSON support
+
+# === SETTINGS ===
+file_name = "helo.ino"  # ✅ Ensure this file exists
+local_folder = r"C:\Users\Ibrahim Ghazi\Desktop\FYDP\program\send_ino_file"
+local_path = os.path.join(local_folder, file_name)
+
+# === CHECK FILE EXISTS ===
+if not os.path.exists(local_path):
+    # Return JSON response for file not found
+    print(json.dumps({
+        "success": False,
+        "message": f"❌ File not found at: {local_path}"
+    }))
+    exit(1)
+
+# === REMOTE SETTINGS ===
+remote_user = "buildit"
+remote_host = "buildit.local"
+remote_folder = "/home/buildit/builditapp/received_program"
+remote_path = f"{remote_user}@{remote_host}:{remote_folder}"
+
+# === RUN SCP COMMAND ===
+scp_command = f'scp "{local_path}" {remote_path}'
+
+try:
+    subprocess.run(scp_command, check=True, shell=True)
+    # Return JSON response for success
+    print(json.dumps({
+        "success": True,
+        "message": f"✅ File '{file_name}' sent successfully to Raspberry Pi at '{remote_path}'."
+    }))
+except subprocess.CalledProcessError as e:
+    # Return JSON response for error
+    print(json.dumps({
+        "success": False,
+        "message": f"❌ Failed to send file. Error: {str(e)}"
+    }))
+
