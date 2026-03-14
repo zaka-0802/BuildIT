@@ -2,7 +2,6 @@
 #define BUILDIT_H
 
 #include <Arduino.h>
-
 // Sensor labels
 #define A 0
 #define B 1
